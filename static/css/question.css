@@ -1,0 +1,23 @@
+.question_container{
+    margin: 0 auto;
+    width: 890px;
+}
+
+.author-time{
+    text-align: center;
+    padding: 7px;
+    border-bottom: 1px solid #f3f3f3;
+}
+
+.question_content{
+    padding: 20px;
+    border-bottom: 1px solid #f3f3f3;
+}
+
+.comment-btn{
+    text-align: right;
+}
+
+.each-comment{
+    padding: 5px;
+}

@@ -1,0 +1,18 @@
+.form_container{
+    width: 700px;
+    margin: 0 auto;
+    padding: 20px 0 20px 0;
+}
+
+.media-create_time{
+    text-align: right;
+}
+
+.avatar-logo{
+    width: 60px;
+}
+
+.media{
+    border-bottom: 1px solid #f3f3f3;
+    padding: 20px;
+}

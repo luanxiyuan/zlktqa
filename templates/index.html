@@ -1,0 +1,27 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+    首页
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+
+{% block main %}
+    <h3 class="page-title">全部问答</h3>
+    {% for question in questions %}
+    <div class="media">
+      <div class="media-left">
+        <a href="#">
+          <img class="media-object avatar-logo" src="{{ url_for('static', filename='img/avatar.png') }}" alt="头像">
+        </a>
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading"><a href="{{ url_for('question', id=question.id) }}">{{ question.title }}</a></h4>
+        <div class="media-content">{{ question.content }}</div>
+        <div class="media-create_time">{{ question.author.username }} - {{ question.create_time }}</div>
+      </div>
+    </div>
+    {% endfor %}
+{% endblock %}
