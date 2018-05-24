@@ -10,6 +10,12 @@ class User(db.Model):
     username = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(100), nullable=False)
 
+    def to_json(self):
+        dict = self.__dict__
+        if "_sa_instance_state" in dict:
+            del dict["_sa_instance_state"]
+        return dict
+
 
 class Question(db.Model):
     __tablename__ = 't_question'
@@ -23,6 +29,12 @@ class Question(db.Model):
 
     author = db.relationship('User', backref=db.backref('questions'))
 
+    def to_json(self):
+        dict = self.__dict__
+        if "_sa_instance_state" in dict:
+            del dict["_sa_instance_state"]
+        return dict
+
 
 class Comment(db.Model):
     __tablename__ = 't_comment'
@@ -34,3 +46,9 @@ class Comment(db.Model):
 
     author = db.relationship('User', backref=db.backref('comments'))
     question = db.relationship('Question', backref=db.backref('comments', order_by=create_time.desc()))
+
+    def to_json(self):
+        dict = self.__dict__
+        if "_sa_instance_state" in dict:
+            del dict["_sa_instance_state"]
+        return dict

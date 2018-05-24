@@ -1,11 +1,14 @@
 #encoding: utf-8
-from flask import Flask, render_template, request, session, redirect, url_for
+import decimal
+
+from flask import Flask, render_template, request, session, redirect, url_for, jsonify
 from exts import db
 import config
 import pymysql
 from models import User, Question, Comment
+from sqlalchemy.ext.declarative import DeclarativeMeta
 from decorators import login_required
-import logging, os, time
+import logging, os, time, json, datetime
 
 pymysql.install_as_MySQLdb()
 
@@ -36,9 +39,32 @@ app.logger.addHandler(handler)
 
 @app.route('/')
 def index():
-    app.logger.error('这是第一个erro log')
+    app.logger.error('这是第一个error log')
+    app.logger.warning('这是第一个warning log')
+    app.logger.info('这是第一个info log')
+    app.logger.debug('这是第一个debug log')
     questions = db.session.query(Question).order_by(Question.create_time.desc()).all()
     return render_template('index.html', questions = questions)
+
+
+# rest api接口，并将查询结果转化为json
+@app.route('/questions', methods=['GET'])
+def questions():
+    questions = db.session.query(Question).all()
+    result = []
+    for question in questions:
+        result.append(question.to_json())
+    return jsonify(result), 200
+
+
+# rest api接口，并将查询结果转化为json
+@app.route('/comments', methods=['GET'])
+def comments():
+    comments = db.session.query(Comment).all()
+    result = []
+    for comment in comments:
+        result.append(comment.to_json())
+    return jsonify(result), 200
 
 
 #登录
